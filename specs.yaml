@@ -1,0 +1,25 @@
+# Contract sizes aur tick sizes ke liye
+
+GOLDM:
+  trading_unit_grams: 100
+  quoted_unit_grams: 10
+  fineness: 0.995
+  tick_size: 1.0
+
+GOLDTEN:
+  trading_unit_grams: 10
+  quoted_unit_grams: 10
+  fineness: 0.999
+  tick_size: 1.0
+
+GOLDGUINEA:
+  trading_unit_grams: 8
+  quoted_unit_grams: 8
+  fineness: 0.999
+  tick_size: 1.0
+
+GOLDPETAL:
+  trading_unit_grams: 1
+  quoted_unit_grams: 1
+  fineness: 0.999
+  tick_size: 1.0

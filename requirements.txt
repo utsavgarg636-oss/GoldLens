@@ -1,0 +1,13 @@
+# Libraries list
+
+requests
+pandas
+numpy
+scipy
+statsmodels
+duckdb
+pyarrow
+pytest
+streamlit
+plotly
+pyyaml

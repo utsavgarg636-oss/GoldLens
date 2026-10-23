@@ -1,0 +1,16 @@
+# Purity, fees, tax rates rakhne ke liye
+
+normalization:
+  default_basis: "pure_gold"
+
+analytics:
+  rolling_window: 60
+  z_entry_threshold: 2.0
+  z_exit_threshold: 0.5
+
+costs:
+  brokerage_per_order_inr: 20.0
+  ctt_rate: 0.0001
+  gst_rate: 0.18
+  stamp_duty_rate: 0.00003
+  slippage_ticks: 1
