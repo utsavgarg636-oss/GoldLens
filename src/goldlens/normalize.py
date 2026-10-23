@@ -1,11 +1,16 @@
 # Step 2: Per-gram unit conversion
 
 import os
+import sys
 import duckdb
 import pandas as pd
 import yaml
 
-# Fallback specifications if specs.yaml is missing/empty
+# Guarantee workspace root in sys.path
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 DEFAULT_SPECS = {
     "GOLDM": {"trading_unit_grams": 100, "quoted_unit_grams": 10, "fineness": 0.995, "tick_size": 1.0},
     "GOLDTEN": {"trading_unit_grams": 10, "quoted_unit_grams": 10, "fineness": 0.999, "tick_size": 1.0},
@@ -13,7 +18,9 @@ DEFAULT_SPECS = {
     "GOLDPETAL": {"trading_unit_grams": 1, "quoted_unit_grams": 1, "fineness": 0.999, "tick_size": 1.0}
 }
 
-def load_specs(specs_path="specs.yaml"):
+def load_specs(specs_path=None):
+    if specs_path is None:
+        specs_path = os.path.join(PROJECT_ROOT, "specs.yaml")
     if os.path.exists(specs_path):
         try:
             with open(specs_path, "r") as f:
@@ -25,16 +32,16 @@ def load_specs(specs_path="specs.yaml"):
     return DEFAULT_SPECS
 
 def run_normalization():
-    db_path = "data/processed/goldlens.duckdb"
+    db_path = os.path.join(PROJECT_ROOT, "data", "processed", "goldlens.duckdb")
     if not os.path.exists(db_path):
-        print("❌ DuckDB file nahi mili! Pehle store.py chalao.")
+        print("[!] DuckDB file not found! Run store.py first.")
         return
         
     conn = duckdb.connect(db_path)
     df = conn.execute("SELECT * FROM raw_bhavcopy").fetchdf()
     
     if df.empty:
-        print("❌ DuckDB mein koi raw data nahi mila!")
+        print("[!] DuckDB has no raw data.")
         conn.close()
         return
 
@@ -56,7 +63,7 @@ def run_normalization():
     df["dte"] = (df["expiry_date"] - df["trade_date"]).dt.days
     df["is_thin"] = df["volume"] < 100
 
-    # DuckDB normalized table save
+    # DuckDB normalized table save with both close and close_pg
     conn.execute("DROP TABLE IF EXISTS prices_norm")
     conn.execute("""
     CREATE TABLE prices_norm (
@@ -64,6 +71,7 @@ def run_normalization():
         symbol VARCHAR,
         expiry_date DATE,
         dte INT,
+        close DOUBLE,
         close_pg DOUBLE,
         volume BIGINT,
         oi BIGINT,
@@ -71,10 +79,10 @@ def run_normalization():
     )
     """)
     
-    conn.register("temp_norm", df[["trade_date", "symbol", "expiry_date", "dte", "close_pg", "volume", "oi", "is_thin"]])
+    conn.register("temp_norm", df[["trade_date", "symbol", "expiry_date", "dte", "close", "close_pg", "volume", "oi", "is_thin"]])
     conn.execute("INSERT INTO prices_norm SELECT * FROM temp_norm")
     
-    print(f"✅ Normalization Complete! {len(df)} rows converted to ₹/gram pure gold in DuckDB.")
+    print(f"[OK] Normalization Complete! {len(df)} rows converted to INR/gram pure gold in DuckDB.")
     conn.close()
 
 if __name__ == "__main__":

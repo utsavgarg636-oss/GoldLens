@@ -6,3 +6,4 @@ textColor = "#0F172A"
 
 [client]
 showSidebarNavigation = true
+toolbarMode = "minimal"
