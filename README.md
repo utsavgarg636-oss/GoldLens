@@ -34,24 +34,27 @@ These structural mismatches make direct price comparisons misleading. A raw spre
 ## 🔬 The Core Problem GoldLens Solves
 
 ```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                     THE MCX RELATIVE VALUE DILEMMA                       │
-└──────────────────────────────────────────────────────────────────────────┘
-  GOLDM (100g, 0.995)   GOLDTEN (10g, 0.999)   GOLDGUINEA (8g, 0.999)   GOLDPETAL (1g, 0.999)
-     ₹74,461 / 10g          ₹74,773 / 10g          ₹59,816 / 8g             ₹7,476 / 1g
-            │                      │                      │                      │
-            └──────────────────────┴──────────┬───────────┴──────────────────────┘
+                         ┌──────────────────────────────────────────┐
+                         │      THE MCX RELATIVE VALUE DILEMMA      │
+                         └────────────────────┬─────────────────────┘
+                                              │
+           ┌───────────────────────┬──────────┴──────────┬───────────────────────┐
+           ▼                       ▼                     ▼                       ▼
+  GOLDM (100g, 0.995)     GOLDTEN (10g, 0.999)  GOLDGUINEA (8g, 0.999)  GOLDPETAL (1g, 0.999)
+     ₹74,461 / 10g           ₹74,773 / 10g          ₹59,816 / 8g             ₹7,476 / 1g
+           │                       │                     │                       │
+           └───────────────────────┴──────────┬──────────┴───────────────────────┘
                                               ▼
-                      Raw Quotes Cannot Be Compared Directly!
-                      • Mismatched Gram Weights (100g vs 10g vs 8g vs 1g)
-                      • Purity Divergence (0.995 Fineness vs 0.999 Fineness)
-                      • Sizing Asymmetry (1 Lot GOLDM ≠ 1 Lot GOLDGUINEA)
-                      • Statutory Tax Drag (0.01% CTT, 18% GST, Stamp Duty)
+                           Raw Quotes Cannot Be Compared Directly!
+                           • Mismatched Gram Weights (100g vs 10g vs 8g vs 1g)
+                           • Purity Divergence (0.995 Fineness vs 0.999 Fineness)
+                           • Sizing Asymmetry (1 Lot GOLDM ≠ 1 Lot GOLDGUINEA)
+                           • Statutory Tax Drag (0.01% CTT, 18% GST, Stamp Duty)
                                               │
                                               ▼
-                             ┌─────────────────────────────────┐
-                             │   ⚡ GOLDLENS ENGINE SOLUTION    │
-                             └─────────────────────────────────┘
+                              ┌───────────────────────────────┐
+                              │  ⚡ GOLDLENS ENGINE SOLUTION  │
+                              └───────────────┬───────────────┘
                                               │
                       ┌───────────────────────┼───────────────────────┐
                       ▼                       ▼                       ▼
