@@ -111,7 +111,13 @@ st.markdown("""
         transform: scale(1.08) !important;
     }
     .stApp {
-        background: radial-gradient(circle at 10% 20%, #F8FAFC 0%, #EDF2F7 90%);
+        background: 
+            radial-gradient(at 0% 0%, rgba(209, 250, 229, 0.45) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(224, 242, 254, 0.45) 0px, transparent 45%),
+            radial-gradient(at 50% 50%, rgba(254, 243, 199, 0.35) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(243, 232, 255, 0.35) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(255, 237, 213, 0.40) 0px, transparent 45%),
+            #F8FAFC !important;
         color: #0F172A;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
@@ -203,7 +209,7 @@ st.markdown("""
         border-left: 3px solid #D97706 !important;
     }
     .bento-card {
-        background: rgba(255, 255, 255, 0.82);
+        background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         border: 1px solid rgba(255, 255, 255, 0.95);
@@ -212,6 +218,44 @@ st.markdown("""
         padding: 16px 18px;
         box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.04);
         margin-bottom: 12px;
+        transition: all 0.28s ease;
+    }
+    .bento-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08);
+    }
+    .bento-kpi-mint {
+        background: linear-gradient(135deg, rgba(209, 250, 229, 0.75) 0%, rgba(236, 253, 245, 0.95) 100%) !important;
+        border: 1px solid rgba(16, 185, 129, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(16, 185, 129, 0.12) !important;
+    }
+    .bento-kpi-sky {
+        background: linear-gradient(135deg, rgba(224, 242, 254, 0.75) 0%, rgba(240, 249, 255, 0.95) 100%) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(56, 189, 248, 0.12) !important;
+    }
+    .bento-kpi-rose {
+        background: linear-gradient(135deg, rgba(255, 228, 230, 0.75) 0%, rgba(255, 241, 242, 0.95) 100%) !important;
+        border: 1px solid rgba(244, 63, 94, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(244, 63, 94, 0.12) !important;
+    }
+    .bento-kpi-emerald {
+        background: linear-gradient(135deg, rgba(220, 252, 231, 0.75) 0%, rgba(240, 253, 244, 0.95) 100%) !important;
+        border: 1px solid rgba(34, 197, 94, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(34, 197, 94, 0.12) !important;
+    }
+    .bento-kpi-amber {
+        background: linear-gradient(135deg, rgba(254, 243, 199, 0.75) 0%, rgba(255, 251, 235, 0.95) 100%) !important;
+        border: 1px solid rgba(245, 158, 11, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(245, 158, 11, 0.12) !important;
+    }
+    .bento-card-mint-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(209, 250, 229, 0.38) 100%) !important;
+        border: 1px solid rgba(16, 185, 129, 0.28) !important;
+    }
+    .bento-card-cyan-tint {
+        background: linear-gradient(135deg, rgba(240, 249, 255, 0.88) 0%, rgba(224, 242, 254, 0.58) 100%) !important;
+        border: 1px solid rgba(14, 165, 233, 0.30) !important;
     }
     .bento-label {
         font-size: 0.72rem;
@@ -250,7 +294,7 @@ if not df_pnl.empty:
     b1, b2, b3, b4, b5 = st.columns(5)
     with b1:
         st.markdown(f"""
-        <div class="bento-card">
+        <div class="bento-card bento-kpi-mint">
             <div class="bento-label">SHARPE RATIO</div>
             <div class="bento-val">{metrics['sharpe_ratio']}</div>
             <div style="font-size: 0.72rem; color: #64748B;">Annualized (Rf=6%)</div>
@@ -258,7 +302,7 @@ if not df_pnl.empty:
         """, unsafe_allow_html=True)
     with b2:
         st.markdown(f"""
-        <div class="bento-card">
+        <div class="bento-card bento-kpi-sky">
             <div class="bento-label">SORTINO RATIO</div>
             <div class="bento-val">{metrics['sortino_ratio']}</div>
             <div style="font-size: 0.72rem; color: #64748B;">Downside volatility adjusted</div>
@@ -266,7 +310,7 @@ if not df_pnl.empty:
         """, unsafe_allow_html=True)
     with b3:
         st.markdown(f"""
-        <div class="bento-card">
+        <div class="bento-card bento-kpi-rose">
             <div class="bento-label">MAX DRAWDOWN</div>
             <div class="bento-val" style="color: #DC2626;">-{metrics['max_drawdown_bp']} <span style="font-size: 0.8rem;">bp</span></div>
             <div style="font-size: 0.72rem; color: #DC2626; font-weight: 700;">Peak-to-trough risk</div>
@@ -274,7 +318,7 @@ if not df_pnl.empty:
         """, unsafe_allow_html=True)
     with b4:
         st.markdown(f"""
-        <div class="bento-card">
+        <div class="bento-card bento-kpi-emerald">
             <div class="bento-label">WIN RATE</div>
             <div class="bento-val" style="color: #059669;">{metrics['win_rate_pct']}%</div>
             <div style="font-size: 0.72rem; color: #059669; font-weight: 700;">Profitable trading days</div>
@@ -282,7 +326,7 @@ if not df_pnl.empty:
         """, unsafe_allow_html=True)
     with b5:
         st.markdown(f"""
-        <div class="bento-card">
+        <div class="bento-card bento-kpi-amber">
             <div class="bento-label">PROFIT FACTOR</div>
             <div class="bento-val">{metrics['profit_factor']}</div>
             <div style="font-size: 0.72rem; color: #64748B;">Gross profit / Gross loss</div>
@@ -290,7 +334,7 @@ if not df_pnl.empty:
         """, unsafe_allow_html=True)
 
     # Cumulative Strategy Equity Curve
-    st.markdown('<div class="bento-card" style="padding: 14px 18px;">', unsafe_allow_html=True)
+    st.markdown('<div class="bento-card bento-card-mint-tint" style="padding: 14px 18px;">', unsafe_allow_html=True)
     st.markdown('<div style="font-size: 0.9rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">📈 Cumulative Strategy Equity Curve (Basis Points Net Return)</div>', unsafe_allow_html=True)
     
     portfolio_pnl = df_pnl.groupby("trade_date")["pnl"].sum().reset_index()
@@ -320,7 +364,7 @@ if not df_pnl.empty:
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Monthly Performance Heatmap Breakdown
-    st.markdown('<div class="bento-card" style="padding: 14px 18px;">', unsafe_allow_html=True)
+    st.markdown('<div class="bento-card bento-card-cyan-tint" style="padding: 14px 18px;">', unsafe_allow_html=True)
     st.markdown('<div style="font-size: 0.9rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">🗓️ Monthly Attribution Heatmap (P&L in Basis Points)</div>', unsafe_allow_html=True)
     
     portfolio_pnl["trade_date"] = pd.to_datetime(portfolio_pnl["trade_date"])

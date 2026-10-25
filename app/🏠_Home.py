@@ -136,7 +136,13 @@ st.markdown("""
     }
     
     .stApp {
-        background: radial-gradient(circle at 10% 20%, #F8FAFC 0%, #EDF2F7 90%);
+        background: 
+            radial-gradient(at 0% 0%, rgba(254, 243, 199, 0.45) 0px, transparent 45%),
+            radial-gradient(at 100% 0%, rgba(224, 242, 254, 0.45) 0px, transparent 45%),
+            radial-gradient(at 50% 50%, rgba(245, 243, 255, 0.35) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(209, 250, 229, 0.35) 0px, transparent 45%),
+            radial-gradient(at 0% 100%, rgba(255, 237, 213, 0.40) 0px, transparent 45%),
+            #F8FAFC !important;
         color: #0F172A;
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -250,16 +256,16 @@ st.markdown("""
 
     /* 3. AnnSetu-Inspired Hero Welcome Card */
     .hero-banner {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(248, 250, 252, 0.82) 100%);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 243, 199, 0.40) 45%, rgba(224, 242, 254, 0.40) 100%) !important;
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border: 1px solid rgba(255, 255, 255, 0.95);
-        border-top: 2px solid rgba(217, 119, 6, 0.45);
+        border-top: 2px solid rgba(217, 119, 6, 0.50);
         border-radius: 20px;
         padding: 18px 24px;
         margin-top: 6px !important;
         margin-bottom: 14px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+        box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -318,7 +324,7 @@ st.markdown("""
 
     /* 5. Bento Grid Modular Cards */
     .bento-card {
-        background: rgba(255, 255, 255, 0.82);
+        background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         border: 1px solid rgba(255, 255, 255, 0.95);
@@ -334,6 +340,89 @@ st.markdown("""
         transform: translateY(-3px);
         box-shadow: 0 16px 32px -8px rgba(217, 119, 6, 0.12);
         border-color: rgba(217, 119, 6, 0.35);
+    }
+
+    /* Delicate Pastel Tints for Bento Grid Cards (Multi-Hued Aesthetics) */
+    .bento-card-guinea {
+        background: linear-gradient(135deg, rgba(254, 243, 199, 0.65) 0%, rgba(255, 251, 235, 0.90) 100%) !important;
+        border: 1px solid rgba(245, 158, 11, 0.35) !important;
+        box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.12) !important;
+    }
+    .bento-card-goldm {
+        background: linear-gradient(135deg, rgba(224, 242, 254, 0.65) 0%, rgba(240, 249, 255, 0.90) 100%) !important;
+        border: 1px solid rgba(59, 130, 246, 0.35) !important;
+        box-shadow: 0 8px 24px -4px rgba(59, 130, 246, 0.12) !important;
+    }
+    .bento-card-petal {
+        background: linear-gradient(135deg, rgba(209, 250, 229, 0.65) 0%, rgba(236, 253, 245, 0.90) 100%) !important;
+        border: 1px solid rgba(16, 185, 129, 0.35) !important;
+        box-shadow: 0 8px 24px -4px rgba(16, 185, 129, 0.12) !important;
+    }
+    .bento-card-goldten {
+        background: linear-gradient(135deg, rgba(243, 232, 255, 0.65) 0%, rgba(250, 245, 255, 0.90) 100%) !important;
+        border: 1px solid rgba(168, 85, 247, 0.35) !important;
+        box-shadow: 0 8px 24px -4px rgba(168, 85, 247, 0.12) !important;
+    }
+    .bento-card-amber-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(254, 243, 199, 0.38) 100%) !important;
+        border: 1px solid rgba(217, 119, 6, 0.28) !important;
+    }
+    .bento-card-blue-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(224, 242, 254, 0.38) 100%) !important;
+        border: 1px solid rgba(59, 130, 246, 0.28) !important;
+    }
+    .bento-card-mint-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(209, 250, 229, 0.38) 100%) !important;
+        border: 1px solid rgba(16, 185, 129, 0.28) !important;
+    }
+    .bento-card-purple-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(243, 232, 255, 0.35) 100%) !important;
+        border: 1px solid rgba(168, 85, 247, 0.28) !important;
+    }
+    .bento-card-coral-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 237, 213, 0.38) 100%) !important;
+        border: 1px solid rgba(249, 115, 22, 0.28) !important;
+    }
+    .bento-card-cyan-tint {
+        background: linear-gradient(135deg, rgba(240, 249, 255, 0.88) 0%, rgba(224, 242, 254, 0.58) 100%) !important;
+        border: 1px solid rgba(14, 165, 233, 0.30) !important;
+    }
+    .bento-card-slate-tint {
+        background: linear-gradient(135deg, rgba(248, 250, 252, 0.92) 0%, rgba(241, 245, 249, 0.70) 100%) !important;
+        border: 1px solid rgba(203, 213, 225, 0.65) !important;
+    }
+    .bento-card-indigo-tint {
+        background: linear-gradient(135deg, rgba(238, 242, 255, 0.88) 0%, rgba(224, 231, 255, 0.58) 100%) !important;
+        border: 1px solid rgba(99, 102, 241, 0.30) !important;
+    }
+    .bento-card-peach-tint {
+        background: linear-gradient(135deg, rgba(255, 247, 237, 0.88) 0%, rgba(254, 237, 213, 0.58) 100%) !important;
+        border: 1px solid rgba(249, 115, 22, 0.30) !important;
+    }
+    .bento-kpi-mint {
+        background: linear-gradient(135deg, rgba(209, 250, 229, 0.75) 0%, rgba(236, 253, 245, 0.95) 100%) !important;
+        border: 1px solid rgba(16, 185, 129, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(16, 185, 129, 0.12) !important;
+    }
+    .bento-kpi-sky {
+        background: linear-gradient(135deg, rgba(224, 242, 254, 0.75) 0%, rgba(240, 249, 255, 0.95) 100%) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(56, 189, 248, 0.12) !important;
+    }
+    .bento-kpi-rose {
+        background: linear-gradient(135deg, rgba(255, 228, 230, 0.75) 0%, rgba(255, 241, 242, 0.95) 100%) !important;
+        border: 1px solid rgba(244, 63, 94, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(244, 63, 94, 0.12) !important;
+    }
+    .bento-kpi-emerald {
+        background: linear-gradient(135deg, rgba(220, 252, 231, 0.75) 0%, rgba(240, 253, 244, 0.95) 100%) !important;
+        border: 1px solid rgba(34, 197, 94, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(34, 197, 94, 0.12) !important;
+    }
+    .bento-kpi-amber {
+        background: linear-gradient(135deg, rgba(254, 243, 199, 0.75) 0%, rgba(255, 251, 235, 0.95) 100%) !important;
+        border: 1px solid rgba(245, 158, 11, 0.35) !important;
+        box-shadow: 0 6px 20px -3px rgba(245, 158, 11, 0.12) !important;
     }
 
     .bento-header-label {
@@ -444,29 +533,75 @@ st.markdown("""
         font-weight: 500;
     }
 
-    /* 8. Modern Tabs Styling */
+    /* 8. Modern Multi-Hued Tabs Styling (Unique Light Shade for Each Tab) */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        background: rgba(241, 245, 249, 0.7);
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         padding: 6px;
         border-radius: 16px;
-        border: 1px solid rgba(226, 232, 240, 0.8);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
         margin-bottom: 16px;
     }
     .stTabs [data-baseweb="tab"] {
         border-radius: 12px;
-        padding: 8px 18px;
+        padding: 9px 20px;
         font-weight: 700;
         font-size: 0.88rem;
-        color: #475569;
-        border: none !important;
+        color: #64748B;
+        border: 1px solid transparent !important;
         background: transparent;
-        transition: all 0.2s ease;
+        transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .stTabs [aria-selected="true"] {
-        background: #FFFFFF !important;
-        color: #D97706 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    
+    /* Tab 1: 👑 Terminal Cockpit - Warm Champagne Gold */
+    .stTabs [data-baseweb="tab"]:nth-of-type(1):hover {
+        background: rgba(254, 243, 199, 0.5) !important;
+        color: #B45309 !important;
+    }
+    .stTabs [data-baseweb="tab"]:nth-of-type(1)[aria-selected="true"] {
+        background: linear-gradient(135deg, #FEF3C7 0%, #FFFFFF 100%) !important;
+        color: #B45309 !important;
+        border: 1px solid rgba(217, 119, 6, 0.35) !important;
+        box-shadow: 0 4px 14px rgba(217, 119, 6, 0.15) !important;
+    }
+
+    /* Tab 2: ⚖️ Pair Arbitrage Lab - Soft Ice Blue / Sapphire */
+    .stTabs [data-baseweb="tab"]:nth-of-type(2):hover {
+        background: rgba(224, 242, 254, 0.5) !important;
+        color: #0369A1 !important;
+    }
+    .stTabs [data-baseweb="tab"]:nth-of-type(2)[aria-selected="true"] {
+        background: linear-gradient(135deg, #E0F2FE 0%, #FFFFFF 100%) !important;
+        color: #0369A1 !important;
+        border: 1px solid rgba(14, 165, 233, 0.35) !important;
+        box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15) !important;
+    }
+
+    /* Tab 3: 📊 Backtest & Risk Engine - Fresh Mint / Emerald */
+    .stTabs [data-baseweb="tab"]:nth-of-type(3):hover {
+        background: rgba(209, 250, 229, 0.5) !important;
+        color: #047857 !important;
+    }
+    .stTabs [data-baseweb="tab"]:nth-of-type(3)[aria-selected="true"] {
+        background: linear-gradient(135deg, #D1FAE5 0%, #FFFFFF 100%) !important;
+        color: #047857 !important;
+        border: 1px solid rgba(16, 185, 129, 0.35) !important;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15) !important;
+    }
+
+    /* Tab 4: 🧮 Friction & Slippage Simulator - Soft Warm Peach / Terracotta */
+    .stTabs [data-baseweb="tab"]:nth-of-type(4):hover {
+        background: rgba(255, 237, 213, 0.5) !important;
+        color: #C2410C !important;
+    }
+    .stTabs [data-baseweb="tab"]:nth-of-type(4)[aria-selected="true"] {
+        background: linear-gradient(135deg, #FFEDD5 0%, #FFFFFF 100%) !important;
+        color: #C2410C !important;
+        border: 1px solid rgba(249, 115, 22, 0.35) !important;
+        box-shadow: 0 4px 14px rgba(249, 115, 22, 0.15) !important;
     }
 
     /* Section Header */
@@ -586,9 +721,16 @@ with tab_terminal:
                 "GOLDPETAL": "1g Unit • 0.999 Fineness"
             }.get(sym, "MCX Gold Contract")
             
+            theme_card = {
+                "GOLDGUINEA": "bento-card-guinea",
+                "GOLDM": "bento-card-goldm",
+                "GOLDPETAL": "bento-card-petal",
+                "GOLDTEN": "bento-card-goldten"
+            }.get(sym, "")
+            
             with cols[idx]:
                 st.markdown(f"""
-                <div class="bento-card">
+                <div class="bento-card {theme_card}">
                     <div class="bento-header-label">
                         <span>🥇 {sym}</span>
                         {badge_html}
@@ -599,7 +741,7 @@ with tab_terminal:
                         <span>•</span>
                         <span>OI: {row['oi']:,}</span>
                     </div>
-                    <div style="font-size: 0.72rem; color: #94A3B8; margin-top: 6px; font-weight: 600;">
+                    <div style="font-size: 0.72rem; color: #64748B; margin-top: 6px; font-weight: 600;">
                         {spec_desc}
                     </div>
                 </div>
@@ -613,7 +755,7 @@ with tab_terminal:
     col_curve, col_feed = st.columns([1.6, 1.0])
     
     with col_curve:
-        st.markdown('<div class="bento-card" style="padding: 12px 16px;">', unsafe_allow_html=True)
+        st.markdown('<div class="bento-card bento-card-amber-tint" style="padding: 12px 16px;">', unsafe_allow_html=True)
         st.markdown('<div style="font-size: 0.85rem; font-weight: 800; color: #0F172A; margin-bottom: 6px;">📈 MCX Gold Term Structure & Log-Carry Regression Curve</div>', unsafe_allow_html=True)
         
         # Plot Carry Curve (DTE vs Pure Basis)
@@ -653,7 +795,7 @@ with tab_terminal:
         st.markdown('</div>', unsafe_allow_html=True)
         
         # Historical Z-Scores plot below
-        st.markdown('<div class="bento-card" style="padding: 12px 16px; margin-top: 12px;">', unsafe_allow_html=True)
+        st.markdown('<div class="bento-card bento-card-purple-tint" style="padding: 12px 16px; margin-top: 12px;">', unsafe_allow_html=True)
         st.markdown('<div style="font-size: 0.85rem; font-weight: 800; color: #0F172A; margin-bottom: 6px;">📉 60-Day Rolling Z-Score Deviation Matrix</div>', unsafe_allow_html=True)
         
         all_rv = get_all_rv_data()
@@ -689,7 +831,7 @@ with tab_terminal:
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_feed:
-        st.markdown('<div class="bento-card" style="padding: 14px 16px;">', unsafe_allow_html=True)
+        st.markdown('<div class="bento-card bento-card-coral-tint" style="padding: 14px 16px;">', unsafe_allow_html=True)
         st.markdown('<div style="font-size: 0.88rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">⚡ Actionable Arbitrage Signals (Quiet Gate Filtered)</div>', unsafe_allow_html=True)
         
         # Calculate pair spreads & Quiet Alert evaluations
@@ -838,7 +980,7 @@ with tab_compare:
                 m1, m2, m3, m4 = st.columns(4)
                 with m1:
                     st.markdown(f"""
-                    <div class="bento-card">
+                    <div class="bento-card bento-card-cyan-tint">
                         <div class="bento-header-label">CURRENT SPREAD</div>
                         <div class="bento-price-val">₹{latest_spread:+.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                         <div class="bento-subtext">Latest pure gold basis gap</div>
@@ -846,7 +988,7 @@ with tab_compare:
                     """, unsafe_allow_html=True)
                 with m2:
                     st.markdown(f"""
-                    <div class="bento-card">
+                    <div class="bento-card bento-card-slate-tint">
                         <div class="bento-header-label">HISTORICAL MEAN</div>
                         <div class="bento-price-val">₹{mean_spread:+.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                         <div class="bento-subtext">Long-term equilibrium</div>
@@ -854,7 +996,7 @@ with tab_compare:
                     """, unsafe_allow_html=True)
                 with m3:
                     st.markdown(f"""
-                    <div class="bento-card">
+                    <div class="bento-card bento-card-amber-tint">
                         <div class="bento-header-label">SPREAD VOLATILITY (1σ)</div>
                         <div class="bento-price-val">₹{std_spread:.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                         <div class="bento-subtext">Standard deviation band</div>
@@ -863,7 +1005,7 @@ with tab_compare:
                 with m4:
                     tag_class = "badge-rich" if z_dev > 1.5 else ("badge-cheap" if z_dev < -1.5 else "badge-fair")
                     st.markdown(f"""
-                    <div class="bento-card">
+                    <div class="bento-card bento-card-purple-tint">
                         <div class="bento-header-label">CURRENT Z-SCORE</div>
                         <div class="bento-price-val">{z_dev:+.2f}σ</div>
                         <div class="bento-subtext"><span class="{tag_class}">{"OVERVALUED" if z_dev > 1.5 else ("UNDERVALUED" if z_dev < -1.5 else "FAIR VALUE")}</span></div>
@@ -871,7 +1013,7 @@ with tab_compare:
                     """, unsafe_allow_html=True)
 
                 # Pair Spread Chart with +/- 2 Sigma Bands
-                st.markdown('<div class="bento-card" style="margin-top: 14px; padding: 12px 18px;">', unsafe_allow_html=True)
+                st.markdown('<div class="bento-card bento-card-blue-tint" style="margin-top: 14px; padding: 12px 18px;">', unsafe_allow_html=True)
                 fig_spread = go.Figure()
                 fig_spread.add_trace(go.Scatter(
                     x=df_pair["trade_date"], 
@@ -900,7 +1042,7 @@ with tab_compare:
                 
                 col_lot1, col_lot2 = st.columns(2)
                 with col_lot1:
-                    st.markdown('<div class="bento-card">', unsafe_allow_html=True)
+                    st.markdown('<div class="bento-card bento-card-indigo-tint">', unsafe_allow_html=True)
                     leg1_lots = st.number_input(f"Enter Lots for {leg1}", min_value=1, max_value=1000, value=1)
                     
                     mult_map = {"GOLDM": 100, "GOLDTEN": 10, "GOLDGUINEA": 8, "GOLDPETAL": 1}
@@ -922,7 +1064,7 @@ with tab_compare:
                     st.markdown('</div>', unsafe_allow_html=True)
 
                 with col_lot2:
-                    st.markdown('<div class="bento-card">', unsafe_allow_html=True)
+                    st.markdown('<div class="bento-card bento-card-mint-tint">', unsafe_allow_html=True)
                     notional = g1 * (df_pair.iloc[-1]["p1_close"] if not df_pair.empty else 7500.0)
                     cost_info = calculate_transaction_costs(notional, True, {
                         "costs": {
@@ -973,7 +1115,7 @@ with tab_backtest:
         b1, b2, b3, b4, b5 = st.columns(5)
         with b1:
             st.markdown(f"""
-            <div class="bento-card">
+            <div class="bento-card bento-kpi-mint">
                 <div class="bento-header-label">SHARPE RATIO</div>
                 <div class="bento-price-val">{metrics['sharpe_ratio']}</div>
                 <div class="bento-subtext">Annualized risk-adjusted</div>
@@ -981,7 +1123,7 @@ with tab_backtest:
             """, unsafe_allow_html=True)
         with b2:
             st.markdown(f"""
-            <div class="bento-card">
+            <div class="bento-card bento-kpi-sky">
                 <div class="bento-header-label">SORTINO RATIO</div>
                 <div class="bento-price-val">{metrics['sortino_ratio']}</div>
                 <div class="bento-subtext">Downside penalty adjusted</div>
@@ -989,7 +1131,7 @@ with tab_backtest:
             """, unsafe_allow_html=True)
         with b3:
             st.markdown(f"""
-            <div class="bento-card">
+            <div class="bento-card bento-kpi-rose">
                 <div class="bento-header-label">MAX DRAWDOWN</div>
                 <div class="bento-price-val" style="color: #DC2626;">-{metrics['max_drawdown_bp']} <span style="font-size: 0.8rem;">bp</span></div>
                 <div class="bento-subtext">Peak-to-trough drop</div>
@@ -997,7 +1139,7 @@ with tab_backtest:
             """, unsafe_allow_html=True)
         with b4:
             st.markdown(f"""
-            <div class="bento-card">
+            <div class="bento-card bento-kpi-emerald">
                 <div class="bento-header-label">WIN RATE</div>
                 <div class="bento-price-val" style="color: #059669;">{metrics['win_rate_pct']}%</div>
                 <div class="bento-subtext">Profitable trades ratio</div>
@@ -1005,7 +1147,7 @@ with tab_backtest:
             """, unsafe_allow_html=True)
         with b5:
             st.markdown(f"""
-            <div class="bento-card">
+            <div class="bento-card bento-kpi-amber">
                 <div class="bento-header-label">PROFIT FACTOR</div>
                 <div class="bento-price-val">{metrics['profit_factor']}</div>
                 <div class="bento-subtext">Gross wins / Gross losses</div>
@@ -1013,7 +1155,7 @@ with tab_backtest:
             """, unsafe_allow_html=True)
 
         # Cumulative Strategy Equity Curve
-        st.markdown('<div class="bento-card" style="margin-top: 14px; padding: 12px 18px;">', unsafe_allow_html=True)
+        st.markdown('<div class="bento-card bento-card-mint-tint" style="margin-top: 14px; padding: 12px 18px;">', unsafe_allow_html=True)
         st.markdown('<div style="font-size: 0.88rem; font-weight: 800; color: #0F172A; margin-bottom: 6px;">📈 Cumulative Strategy Net P&L Equity Curve (Basis Points)</div>', unsafe_allow_html=True)
         
         # Aggregate daily portfolio pnl
@@ -1044,7 +1186,7 @@ with tab_backtest:
         st.markdown('</div>', unsafe_allow_html=True)
 
         # Monthly Performance Breakdown
-        st.markdown('<div class="bento-card" style="margin-top: 14px; padding: 12px 18px;">', unsafe_allow_html=True)
+        st.markdown('<div class="bento-card bento-card-cyan-tint" style="margin-top: 14px; padding: 12px 18px;">', unsafe_allow_html=True)
         st.markdown('<div style="font-size: 0.88rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">🗓️ Monthly Returns Heatmap (Basis Points Attribution)</div>', unsafe_allow_html=True)
         
         portfolio_pnl["trade_date"] = pd.to_datetime(portfolio_pnl["trade_date"])
@@ -1079,7 +1221,7 @@ with tab_friction:
     
     col_f1, col_f2 = st.columns([1.2, 1.8])
     with col_f1:
-        st.markdown('<div class="bento-card">', unsafe_allow_html=True)
+        st.markdown('<div class="bento-card bento-card-peach-tint">', unsafe_allow_html=True)
         sim_notional = st.number_input("Simulated Trade Notional (₹)", min_value=10000.0, max_value=5000000.0, value=750000.0, step=50000.0)
         sim_ticks = st.slider("Simulated Slippage (Ticks)", 0, 5, 1)
         sim_brokerage = st.slider("Brokerage / Order (₹)", 10.0, 50.0, 20.0, 5.0)
@@ -1095,12 +1237,12 @@ with tab_friction:
         })
         
         st.markdown(f"""
-        <div style="margin-top: 12px; padding: 12px; background: rgba(248, 250, 252, 0.9); border-radius: 12px; border: 1px solid #E2E8F0;">
-            <div style="font-size: 0.75rem; color: #64748B; font-weight: 700;">TOTAL ESTIMATED ONE-WAY FRICTION:</div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: #D97706; font-family: 'JetBrains Mono', monospace; margin: 4px 0;">
+        <div style="margin-top: 12px; padding: 14px; background: linear-gradient(135deg, rgba(255, 237, 213, 0.75) 0%, rgba(254, 243, 199, 0.75) 100%); border-radius: 12px; border: 1px solid rgba(249, 115, 22, 0.35); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.08);">
+            <div style="font-size: 0.75rem; color: #9A3412; font-weight: 800; letter-spacing: 0.5px;">TOTAL ESTIMATED ONE-WAY FRICTION:</div>
+            <div style="font-size: 1.55rem; font-weight: 800; color: #C2410C; font-family: 'JetBrains Mono', monospace; margin: 4px 0;">
                 ₹{cost_sim['total_cost_inr']:,.2f}
             </div>
-            <div style="font-size: 0.8rem; font-weight: 700; color: #334155;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #431407;">
                 Friction in Basis Points: <span style="font-family: 'JetBrains Mono', monospace;">{cost_sim['cost_bp']:.2f} bp</span>
             </div>
         </div>
@@ -1108,7 +1250,7 @@ with tab_friction:
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_f2:
-        st.markdown('<div class="bento-card">', unsafe_allow_html=True)
+        st.markdown('<div class="bento-card bento-card-slate-tint">', unsafe_allow_html=True)
         st.markdown('<div style="font-size: 0.88rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">📊 Statutory Fee Breakdown Matrix</div>', unsafe_allow_html=True)
         
         fee_data = [

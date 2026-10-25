@@ -110,7 +110,13 @@ st.markdown("""
         transform: scale(1.08) !important;
     }
     .stApp {
-        background: radial-gradient(circle at 10% 20%, #F8FAFC 0%, #EDF2F7 90%);
+        background: 
+            radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.50) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(254, 243, 199, 0.45) 0px, transparent 45%),
+            radial-gradient(at 50% 50%, rgba(243, 232, 255, 0.35) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(209, 250, 229, 0.40) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(255, 237, 213, 0.45) 0px, transparent 45%),
+            #F8FAFC !important;
         color: #0F172A;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
@@ -202,7 +208,7 @@ st.markdown("""
         border-left: 3px solid #D97706 !important;
     }
     .bento-card {
-        background: rgba(255, 255, 255, 0.82);
+        background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         border: 1px solid rgba(255, 255, 255, 0.95);
@@ -211,6 +217,35 @@ st.markdown("""
         padding: 16px 18px;
         box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.04);
         margin-bottom: 12px;
+        transition: all 0.28s ease;
+    }
+    .bento-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08);
+    }
+    .bento-card-cyan-tint {
+        background: linear-gradient(135deg, rgba(240, 249, 255, 0.88) 0%, rgba(224, 242, 254, 0.58) 100%) !important;
+        border: 1px solid rgba(14, 165, 233, 0.30) !important;
+    }
+    .bento-card-slate-tint {
+        background: linear-gradient(135deg, rgba(248, 250, 252, 0.92) 0%, rgba(241, 245, 249, 0.70) 100%) !important;
+        border: 1px solid rgba(203, 213, 225, 0.65) !important;
+    }
+    .bento-card-amber-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(254, 243, 199, 0.40) 100%) !important;
+        border: 1px solid rgba(217, 119, 6, 0.28) !important;
+    }
+    .bento-card-purple-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(243, 232, 255, 0.38) 100%) !important;
+        border: 1px solid rgba(168, 85, 247, 0.28) !important;
+    }
+    .bento-card-blue-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(224, 242, 254, 0.38) 100%) !important;
+        border: 1px solid rgba(59, 130, 246, 0.28) !important;
+    }
+    .bento-card-mint-tint {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(209, 250, 229, 0.38) 100%) !important;
+        border: 1px solid rgba(16, 185, 129, 0.28) !important;
     }
     .bento-label {
         font-size: 0.72rem;
@@ -272,7 +307,7 @@ if len(symbols) >= 2:
             m1, m2, m3, m4 = st.columns(4)
             with m1:
                 st.markdown(f"""
-                <div class="bento-card">
+                <div class="bento-card bento-card-cyan-tint">
                     <div class="bento-label">CURRENT SPREAD</div>
                     <div class="bento-val">₹{latest_spread:+.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                     <div style="font-size: 0.72rem; color: #64748B;">Latest pure basis gap</div>
@@ -280,7 +315,7 @@ if len(symbols) >= 2:
                 """, unsafe_allow_html=True)
             with m2:
                 st.markdown(f"""
-                <div class="bento-card">
+                <div class="bento-card bento-card-slate-tint">
                     <div class="bento-label">HISTORICAL MEAN</div>
                     <div class="bento-val">₹{mean_spread:+.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                     <div style="font-size: 0.72rem; color: #64748B;">Mean equilibrium price</div>
@@ -288,7 +323,7 @@ if len(symbols) >= 2:
                 """, unsafe_allow_html=True)
             with m3:
                 st.markdown(f"""
-                <div class="bento-card">
+                <div class="bento-card bento-card-amber-tint">
                     <div class="bento-label">SPREAD VOLATILITY (1σ)</div>
                     <div class="bento-val">₹{std_spread:.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                     <div style="font-size: 0.72rem; color: #64748B;">Standard deviation</div>
@@ -298,7 +333,7 @@ if len(symbols) >= 2:
                 status_text = "OVERVALUED" if z_score > 1.5 else ("UNDERVALUED" if z_score < -1.5 else "FAIR VALUE")
                 status_color = "#DC2626" if z_score > 1.5 else ("#059669" if z_score < -1.5 else "#64748B")
                 st.markdown(f"""
-                <div class="bento-card">
+                <div class="bento-card bento-card-purple-tint">
                     <div class="bento-label">Z-SCORE DEVIATION</div>
                     <div class="bento-val">{z_score:+.2f}σ</div>
                     <div style="font-size: 0.75rem; font-weight: 700; color: {status_color};">{status_text}</div>
@@ -306,7 +341,7 @@ if len(symbols) >= 2:
                 """, unsafe_allow_html=True)
                 
             # Pair Spread Chart
-            st.markdown('<div class="bento-card" style="padding: 12px 18px;">', unsafe_allow_html=True)
+            st.markdown('<div class="bento-card bento-card-blue-tint" style="padding: 12px 18px;">', unsafe_allow_html=True)
             fig_spread = go.Figure()
             fig_spread.add_trace(go.Scatter(
                 x=df_pair["trade_date"], 
@@ -335,7 +370,7 @@ if len(symbols) >= 2:
             
             c_size1, c_size2 = st.columns(2)
             with c_size1:
-                st.markdown('<div class="bento-card">', unsafe_allow_html=True)
+                st.markdown('<div class="bento-card bento-card-amber-tint">', unsafe_allow_html=True)
                 leg1_lots = st.number_input(f"Enter Lots for {leg1}", min_value=1, value=1)
                 
                 mult_map = {"GOLDM": 100, "GOLDTEN": 10, "GOLDGUINEA": 8, "GOLDPETAL": 1}
@@ -356,7 +391,7 @@ if len(symbols) >= 2:
                 st.markdown('</div>', unsafe_allow_html=True)
 
             with c_size2:
-                st.markdown('<div class="bento-card">', unsafe_allow_html=True)
+                st.markdown('<div class="bento-card bento-card-mint-tint">', unsafe_allow_html=True)
                 cost_bp = estimate_roundtrip_cost_bp(20.0, 1, 75000.0)
                 exp_edge_bp = abs(z_score * 15.0)
                 net_edge = exp_edge_bp - cost_bp
