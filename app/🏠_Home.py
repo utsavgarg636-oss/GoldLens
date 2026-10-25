@@ -24,7 +24,10 @@ from src.goldlens.db import (
     get_distinct_symbols,
     query_df
 )
+import importlib
 from src.goldlens.relval import calculate_performance_metrics, test_stationarity
+import src.goldlens.costs
+importlib.reload(src.goldlens.costs)
 from src.goldlens.costs import calculate_transaction_costs, estimate_roundtrip_cost_bp
 from src.goldlens.alerts import evaluate_quiet_alert_gate
 
