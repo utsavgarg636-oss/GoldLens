@@ -525,7 +525,16 @@ with st.sidebar:
     st.markdown("### 💸 Friction & Execution Cost")
     brokerage_fee = st.number_input("Brokerage Fee (₹/order)", 0.0, 100.0, 20.0, 5.0)
     slippage_buffer_ticks = st.slider("Slippage Buffer (Ticks)", 0, 5, 1)
-    ctt_rate = st.number_input("CTT Rate (%)", 0.005, 0.05, 0.010, 0.001) / 100.0
+    ctt_rate_pct = st.number_input(
+        "CTT Rate (%)", 
+        min_value=0.000, 
+        max_value=0.100, 
+        value=0.010, 
+        step=0.005, 
+        format="%.3f",
+        help="Statutory MCX Commodity Transaction Tax on futures turnover (0.01% on sell side). Each 0.01% = 1.0 bp."
+    )
+    ctt_rate = ctt_rate_pct / 100.0
     
     st.markdown("---")
     st.markdown("### 🛡️ Quiet Alert Filter")
@@ -693,7 +702,7 @@ with tab_terminal:
                     spread = p1 - p2
                     # Approximate theoretical basis points edge
                     exp_edge_bp = abs(spread / ((p1 + p2) / 2)) * 10000
-                    cost_bp = estimate_roundtrip_cost_bp(brokerage_fee, slippage_buffer_ticks, 75000.0)
+                    cost_bp = estimate_roundtrip_cost_bp(brokerage_fee, slippage_buffer_ticks, 75000.0, ctt_rate=ctt_rate)
                     net_edge = exp_edge_bp - cost_bp
                     
                     # Gate Check
@@ -1102,7 +1111,7 @@ with tab_friction:
         fee_data = [
             {"Fee Category": "Brokerage (Flat)", "Amount (₹)": cost_sim["brokerage"], "Basis": "Fixed per executed order"},
             {"Fee Category": "GST (18% on Brokerage)", "Amount (₹)": cost_sim["gst"], "Basis": "Statutory Goods & Services Tax"},
-            {"Fee Category": "CTT (0.01% on Sell)", "Amount (₹)": cost_sim["ctt"], "Basis": "Commodity Transaction Tax"},
+            {"Fee Category": f"CTT ({ctt_rate_pct:.3f}% on Sell)", "Amount (₹)": cost_sim["ctt"], "Basis": "Commodity Transaction Tax"},
             {"Fee Category": "Stamp Duty (0.003%)", "Amount (₹)": cost_sim["stamp_duty"], "Basis": "State Stamp Duty levy"},
             {"Fee Category": "Slippage Impact", "Amount (₹)": cost_sim["slippage"], "Basis": f"{sim_ticks} tick(s) market buffer"}
         ]

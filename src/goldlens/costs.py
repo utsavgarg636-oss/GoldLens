@@ -35,18 +35,24 @@ def calculate_transaction_costs(trade_value: float, is_sell: bool, config: dict)
         "cost_bp": round(cost_in_bp, 2)
     }
 
-def estimate_roundtrip_cost_bp(brokerage_inr: float = 20.0, slippage_ticks: int = 1, notional_value: float = 75000.0) -> float:
+def estimate_roundtrip_cost_bp(
+    brokerage_inr: float = 20.0, 
+    slippage_ticks: int = 1, 
+    notional_value: float = 75000.0,
+    ctt_rate: float = 0.0001,
+    stamp_duty_rate: float = 0.00003
+) -> float:
     """
     Quick helper for UI slider calculations to estimate total roundtrip friction in basis points.
     """
     if notional_value <= 0:
         return 0.0
     
-    # 2 orders (entry + exit) brokerage + GST
+    # 2 orders (entry + exit) brokerage + GST (18%)
     total_brokerage = (brokerage_inr * 2) * 1.18
-    # CTT on sell side (~0.01%) + Stamp duty on buy side (~0.003%)
-    taxes = notional_value * 0.00013
-    # Slippage buffer
+    # CTT on sell side + Stamp duty on buy side
+    taxes = notional_value * (ctt_rate + stamp_duty_rate)
+    # Slippage buffer on entry + exit
     slippage = slippage_ticks * 10.0 * 2
     
     total_friction = total_brokerage + taxes + slippage
