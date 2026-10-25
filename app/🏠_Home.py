@@ -614,8 +614,57 @@ st.markdown("""
         align-items: center;
         gap: 8px;
     }
+
+    /* 9. Dynamic Parameter Change Highlights (1-Second Smooth Flash) */
+    @keyframes glHighlightPulse {
+        0% {
+            background-color: #FEF08A !important;
+            color: #92400E !important;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.45), 0 2px 10px rgba(245, 158, 11, 0.35) !important;
+            border-radius: 6px;
+            transform: scale(1.06);
+        }
+        35% {
+            background-color: #FEF9C3 !important;
+            color: #92400E !important;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.28), 0 2px 6px rgba(245, 158, 11, 0.20) !important;
+            transform: scale(1.03);
+        }
+        100% {
+            background-color: transparent !important;
+            color: inherit !important;
+            box-shadow: none !important;
+            transform: scale(1.0);
+        }
+    }
+
+    .gl-flash-0, .gl-flash-1 {
+        display: inline-block;
+        padding: 1px 6px;
+        margin: -1px -2px;
+        border-radius: 6px;
+        animation: glHighlightPulse 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
 </style>
 """, unsafe_allow_html=True)
+
+# 3.1 Dynamic Parameter Change Detection Helper
+def get_change_flash_class(key: str, current_val) -> str:
+    """
+    Returns an alternating flash CSS class ('gl-flash-0' or 'gl-flash-1') if current_val has changed
+    compared to the previous run, or '' if it hasn't changed.
+    Triggers a 1-second highlight animation exactly once upon value modification.
+    """
+    state_key = f"_prev_{key}"
+    counter_key = f"_flash_cnt_{key}"
+    prev_val = st.session_state.get(state_key, None)
+    has_changed = (prev_val is not None and prev_val != current_val)
+    st.session_state[state_key] = current_val
+    if has_changed:
+        cnt = st.session_state.get(counter_key, 0) + 1
+        st.session_state[counter_key] = cnt
+        return f"gl-flash-{cnt % 2}"
+    return ""
 
 # 4. Fetch Live Database Records
 latest_df = get_latest_prices()
@@ -872,7 +921,9 @@ with tab_terminal:
                 cost_bp = row["cost_bp"]
                 actionable = row["actionable"]
                 
-                status_pill = '<span class="badge-cheap">✅ ACTIONABLE</span>' if actionable else '<span class="badge-rich">🛑 FILTERED</span>'
+                flash_opp = get_change_flash_class(f"home_opp_{pair_name}", (round(cost_bp, 1), round(net_edge, 1), actionable))
+                
+                status_pill = f'<span class="badge-cheap {flash_opp}">✅ ACTIONABLE</span>' if actionable else f'<span class="badge-rich {flash_opp}">🛑 FILTERED</span>'
                 badge_bg = "rgba(16, 185, 129, 0.08)" if actionable else "rgba(241, 245, 249, 0.6)"
                 border_color = "rgba(16, 185, 129, 0.3)" if actionable else "rgba(226, 232, 240, 0.8)"
                 
@@ -887,11 +938,11 @@ with tab_terminal:
                             ₹{spread:+.2f}/g spread
                         </span>
                         <span style="font-size: 0.75rem; color: #64748B;">
-                            Gross: <strong>{edge_bp:.1f} bp</strong> • Cost: <strong>{cost_bp:.1f} bp</strong>
+                            Gross: <strong>{edge_bp:.1f} bp</strong> • Cost: <strong class="{flash_opp}">{cost_bp:.1f} bp</strong>
                         </span>
                     </div>
                     <div style="margin-top: 4px; font-size: 0.72rem; color: {'#065F46' if net_edge > 0 else '#991B1B'}; font-weight: 700;">
-                        Net Edge after friction: {net_edge:+.1f} bp
+                        <span class="{flash_opp}">Net Edge after friction: {net_edge:+.1f} bp</span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -976,13 +1027,18 @@ with tab_compare:
                 std_spread = df_pair["spread_pg"].std()
                 z_dev = (latest_spread - mean_spread) / std_spread if std_spread != 0 else 0.0
                 
+                flash_spread = get_change_flash_class("tab2_spread", (leg1, leg2, round(latest_spread, 2)))
+                flash_mean = get_change_flash_class("tab2_mean", (leg1, leg2, round(mean_spread, 2)))
+                flash_std = get_change_flash_class("tab2_std", (leg1, leg2, round(std_spread, 2)))
+                flash_z = get_change_flash_class("tab2_z", (leg1, leg2, round(z_dev, 2)))
+                
                 # Top Stat Pills
                 m1, m2, m3, m4 = st.columns(4)
                 with m1:
                     st.markdown(f"""
                     <div class="bento-card bento-card-cyan-tint">
                         <div class="bento-header-label">CURRENT SPREAD</div>
-                        <div class="bento-price-val">₹{latest_spread:+.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
+                        <div class="bento-price-val"><span class="{flash_spread}">₹{latest_spread:+.2f}</span><span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                         <div class="bento-subtext">Latest pure gold basis gap</div>
                     </div>
                     """, unsafe_allow_html=True)
@@ -990,7 +1046,7 @@ with tab_compare:
                     st.markdown(f"""
                     <div class="bento-card bento-card-slate-tint">
                         <div class="bento-header-label">HISTORICAL MEAN</div>
-                        <div class="bento-price-val">₹{mean_spread:+.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
+                        <div class="bento-price-val"><span class="{flash_mean}">₹{mean_spread:+.2f}</span><span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                         <div class="bento-subtext">Long-term equilibrium</div>
                     </div>
                     """, unsafe_allow_html=True)
@@ -998,7 +1054,7 @@ with tab_compare:
                     st.markdown(f"""
                     <div class="bento-card bento-card-amber-tint">
                         <div class="bento-header-label">SPREAD VOLATILITY (1σ)</div>
-                        <div class="bento-price-val">₹{std_spread:.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
+                        <div class="bento-price-val"><span class="{flash_std}">₹{std_spread:.2f}</span><span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                         <div class="bento-subtext">Standard deviation band</div>
                     </div>
                     """, unsafe_allow_html=True)
@@ -1007,8 +1063,8 @@ with tab_compare:
                     st.markdown(f"""
                     <div class="bento-card bento-card-purple-tint">
                         <div class="bento-header-label">CURRENT Z-SCORE</div>
-                        <div class="bento-price-val">{z_dev:+.2f}σ</div>
-                        <div class="bento-subtext"><span class="{tag_class}">{"OVERVALUED" if z_dev > 1.5 else ("UNDERVALUED" if z_dev < -1.5 else "FAIR VALUE")}</span></div>
+                        <div class="bento-price-val"><span class="{flash_z}">{z_dev:+.2f}σ</span></div>
+                        <div class="bento-subtext"><span class="{tag_class} {flash_z}">{"OVERVALUED" if z_dev > 1.5 else ("UNDERVALUED" if z_dev < -1.5 else "FAIR VALUE")}</span></div>
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -1050,14 +1106,17 @@ with tab_compare:
                     g2_mult = mult_map.get(leg2, 1)
                     required_leg2_lots = g1 / g2_mult
                     
+                    flash_hedge = get_change_flash_class("home_tab2_hedge_lots", (leg1, leg2, round(required_leg2_lots, 2)))
+                    flash_g1 = get_change_flash_class("home_tab2_g1", (leg1, g1))
+                    
                     st.markdown(f"""
                     <div style="background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 12px; padding: 12px 14px; margin-top: 10px;">
                         <strong style="color: #92400E; font-size: 0.88rem;">💡 Delta-Neutral Hedge Ratio:</strong>
                         <div style="font-size: 1.15rem; font-weight: 800; color: #0F172A; margin: 4px 0;">
-                            Trade <strong>{required_leg2_lots:.1f} lots</strong> of {leg2}
+                            Trade <span class="{flash_hedge}"><strong>{required_leg2_lots:.1f} lots</strong></span> of {leg2}
                         </div>
                         <div style="font-size: 0.75rem; color: #64748B;">
-                            Achieves exact weight neutrality across {g1:,} pure grams of physical gold.
+                            Achieves exact weight neutrality across <span class="{flash_g1}"><strong>{g1:,} pure grams</strong></span> of physical gold.
                         </div>
                     </div>
                     """, unsafe_allow_html=True)
@@ -1080,10 +1139,13 @@ with tab_compare:
                     cost_bp = cost_info["cost_bp"] * 2 # roundtrip
                     net_edge = exp_edge_bp - cost_bp
                     
+                    flash_cost = get_change_flash_class("home_tab2_cost", (round(cost_info['total_cost_inr'] * 2, 2), round(cost_bp, 1)))
+                    flash_edge = get_change_flash_class("home_tab2_edge", round(net_edge, 1))
+                    
                     st.markdown(f"""
                     <div style="font-size: 0.82rem; font-weight: 800; color: #64748B; text-transform: uppercase;">ROUNDTRIP EXECUTION FRICTION</div>
                     <div style="font-size: 1.4rem; font-weight: 800; color: #0F172A; font-family: 'JetBrains Mono', monospace; margin: 4px 0;">
-                        ₹{cost_info['total_cost_inr'] * 2:,.2f} <span style="font-size: 0.8rem; color: #64748B;">({cost_bp:.1f} bp)</span>
+                        <span class="{flash_cost}">₹{cost_info['total_cost_inr'] * 2:,.2f}</span> <span class="{flash_cost}" style="font-size: 0.8rem; color: #64748B;">({cost_bp:.1f} bp)</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #475569; margin-top: 8px;">
                         <span>Theoretical Gross Edge:</span>
@@ -1091,7 +1153,7 @@ with tab_compare:
                     </div>
                     <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #475569; margin-top: 4px;">
                         <span>Net Edge after Statutory Fees:</span>
-                        <strong style="color: {'#059669' if net_edge > 0 else '#DC2626'};">{net_edge:+.1f} bp</strong>
+                        <strong class="{flash_edge}" style="color: {'#059669' if net_edge > 0 else '#DC2626'};">{net_edge:+.1f} bp</strong>
                     </div>
                     <div style="margin-top: 10px;">
                         {"<span class='badge-cheap'>✅ Actionable Arbitrage Edge Exceeds Cost</span>" if net_edge > 0 else "<span class='badge-rich'>🛑 Filtered by Quiet Alert Gate (Edge < Cost)</span>"}
@@ -1236,14 +1298,17 @@ with tab_friction:
             }
         })
         
+        flash_sim_cost = get_change_flash_class("home_tab4_sim_cost", round(cost_sim['total_cost_inr'], 2))
+        flash_sim_bp = get_change_flash_class("home_tab4_sim_bp", round(cost_sim['cost_bp'], 2))
+        
         st.markdown(f"""
         <div style="margin-top: 12px; padding: 14px; background: linear-gradient(135deg, rgba(255, 237, 213, 0.75) 0%, rgba(254, 243, 199, 0.75) 100%); border-radius: 12px; border: 1px solid rgba(249, 115, 22, 0.35); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.08);">
             <div style="font-size: 0.75rem; color: #9A3412; font-weight: 800; letter-spacing: 0.5px;">TOTAL ESTIMATED ONE-WAY FRICTION:</div>
             <div style="font-size: 1.55rem; font-weight: 800; color: #C2410C; font-family: 'JetBrains Mono', monospace; margin: 4px 0;">
-                ₹{cost_sim['total_cost_inr']:,.2f}
+                <span class="{flash_sim_cost}">₹{cost_sim['total_cost_inr']:,.2f}</span>
             </div>
             <div style="font-size: 0.8rem; font-weight: 700; color: #431407;">
-                Friction in Basis Points: <span style="font-family: 'JetBrains Mono', monospace;">{cost_sim['cost_bp']:.2f} bp</span>
+                Friction in Basis Points: <span class="{flash_sim_bp}" style="font-family: 'JetBrains Mono', monospace;">{cost_sim['cost_bp']:.2f} bp</span>
             </div>
         </div>
         """, unsafe_allow_html=True)

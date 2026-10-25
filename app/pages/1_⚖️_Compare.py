@@ -261,8 +261,57 @@ st.markdown("""
         font-family: 'JetBrains Mono', monospace;
         margin: 4px 0;
     }
+
+    /* Dynamic Parameter Change Highlights (1-Second Smooth Flash) */
+    @keyframes glHighlightPulse {
+        0% {
+            background-color: #FEF08A !important;
+            color: #92400E !important;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.45), 0 2px 10px rgba(245, 158, 11, 0.35) !important;
+            border-radius: 6px;
+            transform: scale(1.06);
+        }
+        35% {
+            background-color: #FEF9C3 !important;
+            color: #92400E !important;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.28), 0 2px 6px rgba(245, 158, 11, 0.20) !important;
+            transform: scale(1.03);
+        }
+        100% {
+            background-color: transparent !important;
+            color: inherit !important;
+            box-shadow: none !important;
+            transform: scale(1.0);
+        }
+    }
+
+    .gl-flash-0, .gl-flash-1 {
+        display: inline-block;
+        padding: 1px 6px;
+        margin: -1px -2px;
+        border-radius: 6px;
+        animation: glHighlightPulse 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
 </style>
 """, unsafe_allow_html=True)
+
+# Dynamic Parameter Change Detection Helper
+def get_change_flash_class(key: str, current_val) -> str:
+    """
+    Returns an alternating flash CSS class ('gl-flash-0' or 'gl-flash-1') if current_val has changed
+    compared to the previous run, or '' if it hasn't changed.
+    Triggers a 1-second highlight animation exactly once upon value modification.
+    """
+    state_key = f"_prev_{key}"
+    counter_key = f"_flash_cnt_{key}"
+    prev_val = st.session_state.get(state_key, None)
+    has_changed = (prev_val is not None and prev_val != current_val)
+    st.session_state[state_key] = current_val
+    if has_changed:
+        cnt = st.session_state.get(counter_key, 0) + 1
+        st.session_state[counter_key] = cnt
+        return f"gl-flash-{cnt % 2}"
+    return ""
 
 st.markdown("""
 <div style="margin-bottom: 16px;">
@@ -303,13 +352,18 @@ if len(symbols) >= 2:
             std_spread = df_pair["spread_pg"].std()
             z_score = (latest_spread - mean_spread) / std_spread if std_spread != 0 else 0.0
             
+            flash_spread = get_change_flash_class("compare_spread", (leg1, leg2, round(latest_spread, 2)))
+            flash_mean = get_change_flash_class("compare_mean", (leg1, leg2, round(mean_spread, 2)))
+            flash_std = get_change_flash_class("compare_std", (leg1, leg2, round(std_spread, 2)))
+            flash_z = get_change_flash_class("compare_z", (leg1, leg2, round(z_score, 2)))
+            
             # 4 Metric Cards
             m1, m2, m3, m4 = st.columns(4)
             with m1:
                 st.markdown(f"""
                 <div class="bento-card bento-card-cyan-tint">
                     <div class="bento-label">CURRENT SPREAD</div>
-                    <div class="bento-val">₹{latest_spread:+.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
+                    <div class="bento-val"><span class="{flash_spread}">₹{latest_spread:+.2f}</span><span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                     <div style="font-size: 0.72rem; color: #64748B;">Latest pure basis gap</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -317,7 +371,7 @@ if len(symbols) >= 2:
                 st.markdown(f"""
                 <div class="bento-card bento-card-slate-tint">
                     <div class="bento-label">HISTORICAL MEAN</div>
-                    <div class="bento-val">₹{mean_spread:+.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
+                    <div class="bento-val"><span class="{flash_mean}">₹{mean_spread:+.2f}</span><span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                     <div style="font-size: 0.72rem; color: #64748B;">Mean equilibrium price</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -325,7 +379,7 @@ if len(symbols) >= 2:
                 st.markdown(f"""
                 <div class="bento-card bento-card-amber-tint">
                     <div class="bento-label">SPREAD VOLATILITY (1σ)</div>
-                    <div class="bento-val">₹{std_spread:.2f}<span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
+                    <div class="bento-val"><span class="{flash_std}">₹{std_spread:.2f}</span><span style="font-size: 0.8rem; color:#64748B;">/g</span></div>
                     <div style="font-size: 0.72rem; color: #64748B;">Standard deviation</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -335,8 +389,8 @@ if len(symbols) >= 2:
                 st.markdown(f"""
                 <div class="bento-card bento-card-purple-tint">
                     <div class="bento-label">Z-SCORE DEVIATION</div>
-                    <div class="bento-val">{z_score:+.2f}σ</div>
-                    <div style="font-size: 0.75rem; font-weight: 700; color: {status_color};">{status_text}</div>
+                    <div class="bento-val"><span class="{flash_z}">{z_score:+.2f}σ</span></div>
+                    <div style="font-size: 0.75rem; font-weight: 700; color: {status_color};"><span class="{flash_z}">{status_text}</span></div>
                 </div>
                 """, unsafe_allow_html=True)
                 
@@ -377,14 +431,17 @@ if len(symbols) >= 2:
                 g1 = mult_map.get(leg1, 10) * leg1_lots
                 g2_needed = g1 / mult_map.get(leg2, 1)
                 
+                flash_g2 = get_change_flash_class("compare_g2", (leg1, leg2, round(g2_needed, 2)))
+                flash_g1 = get_change_flash_class("compare_g1", (leg1, g1))
+                
                 st.markdown(f"""
                 <div style="background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 12px; padding: 12px; margin-top: 10px;">
                     <div style="font-weight: 800; color: #92400E; font-size: 0.88rem;">💡 Delta-Neutral Hedge Requirement:</div>
                     <div style="font-size: 1.25rem; font-weight: 800; color: #0F172A; margin: 4px 0;">
-                        Trade <strong>{g2_needed:.1f} lots</strong> of {leg2}
+                        Trade <span class="{flash_g2}"><strong>{g2_needed:.1f} lots</strong></span> of {leg2}
                     </div>
                     <div style="font-size: 0.75rem; color: #64748B;">
-                        Equalizes physical gold weight at {g1:,} pure grams.
+                        Equalizes physical gold weight at <span class="{flash_g1}"><strong>{g1:,} pure grams</strong></span>.
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -396,13 +453,16 @@ if len(symbols) >= 2:
                 exp_edge_bp = abs(z_score * 15.0)
                 net_edge = exp_edge_bp - cost_bp
                 
+                flash_cost = get_change_flash_class("compare_cost", round(cost_bp, 1))
+                flash_edge = get_change_flash_class("compare_edge", round(net_edge, 1))
+                
                 st.markdown(f"""
                 <div style="font-size: 0.75rem; font-weight: 800; color: #64748B; text-transform: uppercase;">NET EXPECTED ARBITRAGE EDGE</div>
                 <div style="font-size: 1.35rem; font-weight: 800; color: {'#059669' if net_edge > 0 else '#DC2626'}; font-family: 'JetBrains Mono', monospace; margin: 4px 0;">
-                    {net_edge:+.1f} bp
+                    <span class="{flash_edge}">{net_edge:+.1f} bp</span>
                 </div>
                 <div style="font-size: 0.78rem; color: #475569; margin-top: 6px;">
-                    Gross Model Edge: <strong>+{exp_edge_bp:.1f} bp</strong> • Roundtrip Friction: <strong>{cost_bp:.1f} bp</strong>
+                    Gross Model Edge: <strong>+{exp_edge_bp:.1f} bp</strong> • Roundtrip Friction: <strong class="{flash_cost}">{cost_bp:.1f} bp</strong>
                 </div>
                 <div style="margin-top: 10px;">
                     {"<div style='background: #D1FAE5; color: #065F46; padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;'>✅ Actionable Arbitrage Signal (Edge > Costs)</div>" if net_edge > 0 else "<div style='background: #FEE2E2; color: #991B1B; padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;'>🛑 Filtered by Quiet Alert Gate (Unprofitable after fees)</div>"}
