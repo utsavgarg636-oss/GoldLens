@@ -217,35 +217,73 @@ st.markdown("""
         padding: 16px 18px;
         box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.04);
         margin-bottom: 12px;
-        transition: all 0.28s ease;
+        transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .bento-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08);
+        transform: translateY(-5px) scale(1.01) !important;
+        box-shadow: 0 20px 38px -6px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05) !important;
     }
     .bento-card-cyan-tint {
         background: linear-gradient(135deg, rgba(240, 249, 255, 0.88) 0%, rgba(224, 242, 254, 0.58) 100%) !important;
         border: 1px solid rgba(14, 165, 233, 0.30) !important;
     }
+    .bento-card-cyan-tint:hover {
+        transform: translateY(-5px) scale(1.01) !important;
+        border-color: #0284C7 !important;
+        box-shadow: 0 18px 36px -4px rgba(14, 165, 233, 0.25) !important;
+    }
     .bento-card-slate-tint {
         background: linear-gradient(135deg, rgba(248, 250, 252, 0.92) 0%, rgba(241, 245, 249, 0.70) 100%) !important;
         border: 1px solid rgba(203, 213, 225, 0.65) !important;
+    }
+    .bento-card-slate-tint:hover {
+        transform: translateY(-5px) scale(1.01) !important;
+        border-color: #64748B !important;
+        box-shadow: 0 18px 36px -4px rgba(100, 116, 139, 0.22) !important;
     }
     .bento-card-amber-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(254, 243, 199, 0.40) 100%) !important;
         border: 1px solid rgba(217, 119, 6, 0.28) !important;
     }
+    .bento-card-amber-tint:hover {
+        transform: translateY(-5px) scale(1.01) !important;
+        border-color: #D97706 !important;
+        box-shadow: 0 18px 36px -4px rgba(217, 119, 6, 0.25) !important;
+    }
     .bento-card-purple-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(243, 232, 255, 0.38) 100%) !important;
         border: 1px solid rgba(168, 85, 247, 0.28) !important;
+    }
+    .bento-card-purple-tint:hover {
+        transform: translateY(-5px) scale(1.01) !important;
+        border-color: #9333EA !important;
+        box-shadow: 0 18px 36px -4px rgba(168, 85, 247, 0.25) !important;
     }
     .bento-card-blue-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(224, 242, 254, 0.38) 100%) !important;
         border: 1px solid rgba(59, 130, 246, 0.28) !important;
     }
+    .bento-card-blue-tint:hover {
+        transform: translateY(-5px) scale(1.01) !important;
+        border-color: #2563EB !important;
+        box-shadow: 0 18px 36px -4px rgba(59, 130, 246, 0.25) !important;
+    }
     .bento-card-mint-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(209, 250, 229, 0.38) 100%) !important;
         border: 1px solid rgba(16, 185, 129, 0.28) !important;
+    }
+    .bento-card-mint-tint:hover {
+        transform: translateY(-5px) scale(1.01) !important;
+        border-color: #059669 !important;
+        box-shadow: 0 18px 36px -4px rgba(16, 185, 129, 0.25) !important;
+    }
+    .delta-hedge-card {
+        transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .delta-hedge-card:hover {
+        transform: translateY(-2px) scale(1.01) !important;
+        border-color: #D97706 !important;
+        box-shadow: 0 10px 24px -2px rgba(217, 119, 6, 0.25) !important;
     }
     .bento-label {
         font-size: 0.72rem;
@@ -435,7 +473,7 @@ if len(symbols) >= 2:
                 flash_g1 = get_change_flash_class("compare_g1", (leg1, g1))
                 
                 st.markdown(f"""
-                <div style="background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 12px; padding: 12px; margin-top: 10px;">
+                <div class="delta-hedge-card" style="background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 12px; padding: 12px; margin-top: 10px;">
                     <div style="font-weight: 800; color: #92400E; font-size: 0.88rem;">💡 Delta-Neutral Hedge Requirement:</div>
                     <div style="font-size: 1.25rem; font-weight: 800; color: #0F172A; margin: 4px 0;">
                         Trade <span class="{flash_g2}"><strong>{g2_needed:.1f} lots</strong></span> of {leg2}

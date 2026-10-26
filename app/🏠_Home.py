@@ -271,6 +271,11 @@ st.markdown("""
         align-items: center;
         flex-wrap: wrap;
         gap: 16px;
+        transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .hero-banner:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 18px 38px -6px rgba(217, 119, 6, 0.18), 0 0 0 1.5px rgba(217, 119, 6, 0.35) !important;
     }
     .hero-title {
         font-size: 1.85rem;
@@ -307,6 +312,14 @@ st.markdown("""
         box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.04), -3px -3px 8px rgba(255, 255, 255, 0.9), inset 1px 1px 2px rgba(255, 255, 255, 0.7);
         border: 1px solid rgba(226, 232, 240, 0.8);
         color: #334155;
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        cursor: pointer;
+    }
+    .pill-telemetry:hover {
+        transform: translateY(-2px) scale(1.05) !important;
+        border-color: #D97706 !important;
+        box-shadow: 0 6px 16px rgba(217, 119, 6, 0.22) !important;
+        background: #FFFBEB !important;
     }
     .live-dot {
         width: 8px;
@@ -332,97 +345,204 @@ st.markdown("""
         border-radius: 18px;
         padding: 16px 18px;
         box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
-        transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.26s cubic-bezier(0.16, 1, 0.3, 1) !important;
         position: relative;
         overflow: hidden;
+        cursor: default;
     }
     .bento-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 16px 32px -8px rgba(217, 119, 6, 0.12);
-        border-color: rgba(217, 119, 6, 0.35);
+        transform: translateY(-5px) scale(1.01) !important;
+        box-shadow: 0 20px 38px -6px rgba(15, 23, 42, 0.12), 0 6px 16px -2px rgba(15, 23, 42, 0.06) !important;
+        border-color: rgba(217, 119, 6, 0.45) !important;
     }
 
-    /* Delicate Pastel Tints for Bento Grid Cards (Multi-Hued Aesthetics) */
+    /* Delicate Pastel Tints for Bento Grid Cards (Multi-Hued Aesthetics & Radiant Hovers) */
     .bento-card-guinea {
         background: linear-gradient(135deg, rgba(254, 243, 199, 0.65) 0%, rgba(255, 251, 235, 0.90) 100%) !important;
         border: 1px solid rgba(245, 158, 11, 0.35) !important;
         box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.12) !important;
+    }
+    .bento-card-guinea:hover {
+        border-color: #D97706 !important;
+        box-shadow: 0 20px 40px -6px rgba(217, 119, 6, 0.32), 0 0 0 1.5px rgba(217, 119, 6, 0.40) !important;
     }
     .bento-card-goldm {
         background: linear-gradient(135deg, rgba(224, 242, 254, 0.65) 0%, rgba(240, 249, 255, 0.90) 100%) !important;
         border: 1px solid rgba(59, 130, 246, 0.35) !important;
         box-shadow: 0 8px 24px -4px rgba(59, 130, 246, 0.12) !important;
     }
+    .bento-card-goldm:hover {
+        border-color: #0284C7 !important;
+        box-shadow: 0 20px 40px -6px rgba(2, 132, 199, 0.32), 0 0 0 1.5px rgba(2, 132, 199, 0.40) !important;
+    }
     .bento-card-petal {
         background: linear-gradient(135deg, rgba(209, 250, 229, 0.65) 0%, rgba(236, 253, 245, 0.90) 100%) !important;
         border: 1px solid rgba(16, 185, 129, 0.35) !important;
         box-shadow: 0 8px 24px -4px rgba(16, 185, 129, 0.12) !important;
+    }
+    .bento-card-petal:hover {
+        border-color: #059669 !important;
+        box-shadow: 0 20px 40px -6px rgba(5, 150, 105, 0.32), 0 0 0 1.5px rgba(5, 150, 105, 0.40) !important;
     }
     .bento-card-goldten {
         background: linear-gradient(135deg, rgba(243, 232, 255, 0.65) 0%, rgba(250, 245, 255, 0.90) 100%) !important;
         border: 1px solid rgba(168, 85, 247, 0.35) !important;
         box-shadow: 0 8px 24px -4px rgba(168, 85, 247, 0.12) !important;
     }
+    .bento-card-goldten:hover {
+        border-color: #9333EA !important;
+        box-shadow: 0 20px 40px -6px rgba(147, 51, 234, 0.32), 0 0 0 1.5px rgba(147, 51, 234, 0.40) !important;
+    }
     .bento-card-amber-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(254, 243, 199, 0.38) 100%) !important;
         border: 1px solid rgba(217, 119, 6, 0.28) !important;
+    }
+    .bento-card-amber-tint:hover {
+        border-color: rgba(217, 119, 6, 0.65) !important;
+        box-shadow: 0 18px 36px -6px rgba(217, 119, 6, 0.22) !important;
     }
     .bento-card-blue-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(224, 242, 254, 0.38) 100%) !important;
         border: 1px solid rgba(59, 130, 246, 0.28) !important;
     }
+    .bento-card-blue-tint:hover {
+        border-color: rgba(59, 130, 246, 0.65) !important;
+        box-shadow: 0 18px 36px -6px rgba(59, 130, 246, 0.22) !important;
+    }
     .bento-card-mint-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(209, 250, 229, 0.38) 100%) !important;
         border: 1px solid rgba(16, 185, 129, 0.28) !important;
+    }
+    .bento-card-mint-tint:hover {
+        border-color: rgba(16, 185, 129, 0.65) !important;
+        box-shadow: 0 18px 36px -6px rgba(16, 185, 129, 0.22) !important;
     }
     .bento-card-purple-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(243, 232, 255, 0.35) 100%) !important;
         border: 1px solid rgba(168, 85, 247, 0.28) !important;
     }
+    .bento-card-purple-tint:hover {
+        border-color: rgba(168, 85, 247, 0.65) !important;
+        box-shadow: 0 18px 36px -6px rgba(168, 85, 247, 0.22) !important;
+    }
     .bento-card-coral-tint {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 237, 213, 0.38) 100%) !important;
         border: 1px solid rgba(249, 115, 22, 0.28) !important;
+    }
+    .bento-card-coral-tint:hover {
+        border-color: rgba(249, 115, 22, 0.65) !important;
+        box-shadow: 0 18px 36px -6px rgba(249, 115, 22, 0.22) !important;
     }
     .bento-card-cyan-tint {
         background: linear-gradient(135deg, rgba(240, 249, 255, 0.88) 0%, rgba(224, 242, 254, 0.58) 100%) !important;
         border: 1px solid rgba(14, 165, 233, 0.30) !important;
     }
+    .bento-card-cyan-tint:hover {
+        border-color: rgba(14, 165, 233, 0.65) !important;
+        box-shadow: 0 18px 36px -6px rgba(14, 165, 233, 0.22) !important;
+    }
     .bento-card-slate-tint {
         background: linear-gradient(135deg, rgba(248, 250, 252, 0.92) 0%, rgba(241, 245, 249, 0.70) 100%) !important;
         border: 1px solid rgba(203, 213, 225, 0.65) !important;
+    }
+    .bento-card-slate-tint:hover {
+        border-color: rgba(148, 163, 184, 0.85) !important;
+        box-shadow: 0 18px 36px -6px rgba(148, 163, 184, 0.22) !important;
     }
     .bento-card-indigo-tint {
         background: linear-gradient(135deg, rgba(238, 242, 255, 0.88) 0%, rgba(224, 231, 255, 0.58) 100%) !important;
         border: 1px solid rgba(99, 102, 241, 0.30) !important;
     }
+    .bento-card-indigo-tint:hover {
+        border-color: rgba(99, 102, 241, 0.65) !important;
+        box-shadow: 0 18px 36px -6px rgba(99, 102, 241, 0.22) !important;
+    }
     .bento-card-peach-tint {
         background: linear-gradient(135deg, rgba(255, 247, 237, 0.88) 0%, rgba(254, 237, 213, 0.58) 100%) !important;
         border: 1px solid rgba(249, 115, 22, 0.30) !important;
     }
+    .bento-card-peach-tint:hover {
+        border-color: rgba(249, 115, 22, 0.65) !important;
+        box-shadow: 0 18px 36px -6px rgba(249, 115, 22, 0.22) !important;
+    }
+
+    /* Executive KPI Tiles & Radiant Hovers */
     .bento-kpi-mint {
         background: linear-gradient(135deg, rgba(209, 250, 229, 0.75) 0%, rgba(236, 253, 245, 0.95) 100%) !important;
         border: 1px solid rgba(16, 185, 129, 0.35) !important;
         box-shadow: 0 6px 20px -3px rgba(16, 185, 129, 0.12) !important;
+    }
+    .bento-kpi-mint:hover {
+        transform: translateY(-5px) scale(1.02) !important;
+        border-color: #059669 !important;
+        box-shadow: 0 18px 36px -4px rgba(16, 185, 129, 0.30) !important;
     }
     .bento-kpi-sky {
         background: linear-gradient(135deg, rgba(224, 242, 254, 0.75) 0%, rgba(240, 249, 255, 0.95) 100%) !important;
         border: 1px solid rgba(56, 189, 248, 0.35) !important;
         box-shadow: 0 6px 20px -3px rgba(56, 189, 248, 0.12) !important;
     }
+    .bento-kpi-sky:hover {
+        transform: translateY(-5px) scale(1.02) !important;
+        border-color: #0284C7 !important;
+        box-shadow: 0 18px 36px -4px rgba(56, 189, 248, 0.30) !important;
+    }
     .bento-kpi-rose {
         background: linear-gradient(135deg, rgba(255, 228, 230, 0.75) 0%, rgba(255, 241, 242, 0.95) 100%) !important;
         border: 1px solid rgba(244, 63, 94, 0.35) !important;
         box-shadow: 0 6px 20px -3px rgba(244, 63, 94, 0.12) !important;
+    }
+    .bento-kpi-rose:hover {
+        transform: translateY(-5px) scale(1.02) !important;
+        border-color: #E11D48 !important;
+        box-shadow: 0 18px 36px -4px rgba(244, 63, 94, 0.30) !important;
     }
     .bento-kpi-emerald {
         background: linear-gradient(135deg, rgba(220, 252, 231, 0.75) 0%, rgba(240, 253, 244, 0.95) 100%) !important;
         border: 1px solid rgba(34, 197, 94, 0.35) !important;
         box-shadow: 0 6px 20px -3px rgba(34, 197, 94, 0.12) !important;
     }
+    .bento-kpi-emerald:hover {
+        transform: translateY(-5px) scale(1.02) !important;
+        border-color: #16A34A !important;
+        box-shadow: 0 18px 36px -4px rgba(34, 197, 94, 0.30) !important;
+    }
     .bento-kpi-amber {
         background: linear-gradient(135deg, rgba(254, 243, 199, 0.75) 0%, rgba(255, 251, 235, 0.95) 100%) !important;
         border: 1px solid rgba(245, 158, 11, 0.35) !important;
         box-shadow: 0 6px 20px -3px rgba(245, 158, 11, 0.12) !important;
+    }
+    .bento-kpi-amber:hover {
+        transform: translateY(-5px) scale(1.02) !important;
+        border-color: #D97706 !important;
+        box-shadow: 0 18px 36px -4px rgba(245, 158, 11, 0.30) !important;
+    }
+
+    /* Interactive Box Hovers (Signal Cards, Order Tickets, Summary Cards) */
+    .feed-signal-card {
+        transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        cursor: pointer;
+    }
+    .feed-signal-card:hover {
+        transform: translateY(-3px) scale(1.015) !important;
+        box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.14) !important;
+        border-color: #D97706 !important;
+    }
+    .delta-hedge-card {
+        transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .delta-hedge-card:hover {
+        transform: translateY(-2px) scale(1.01) !important;
+        border-color: #D97706 !important;
+        box-shadow: 0 10px 24px -2px rgba(217, 119, 6, 0.25) !important;
+    }
+    .friction-summary-card {
+        transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .friction-summary-card:hover {
+        transform: translateY(-2px) scale(1.01) !important;
+        border-color: #C2410C !important;
+        box-shadow: 0 12px 26px -2px rgba(249, 115, 22, 0.28) !important;
     }
 
     .bento-header-label {
@@ -505,11 +625,12 @@ st.markdown("""
         text-decoration: none;
         color: #1E293B;
         cursor: pointer;
+        transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .dock-btn:hover {
-        transform: translateY(-2px);
-        border-color: rgba(217, 119, 6, 0.4);
-        box-shadow: 0 8px 20px -4px rgba(217, 119, 6, 0.15);
+        transform: translateY(-4px) scale(1.02) !important;
+        border-color: #D97706 !important;
+        box-shadow: 0 12px 28px -4px rgba(217, 119, 6, 0.22) !important;
     }
     .dock-icon {
         font-size: 1.4rem;
@@ -533,7 +654,7 @@ st.markdown("""
         font-weight: 500;
     }
 
-    /* 8. Modern Multi-Hued Tabs Styling (Unique Light Shade for Each Tab) */
+    /* 8. Modern Multi-Hued Tabs Styling (Unique Light Shade & Radiant Hover for Each Tab) */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
         background: rgba(255, 255, 255, 0.75);
@@ -553,55 +674,80 @@ st.markdown("""
         color: #64748B;
         border: 1px solid transparent !important;
         background: transparent;
-        transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        cursor: pointer !important;
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        transform: translateY(-3px) scale(1.03) !important;
+        cursor: pointer !important;
     }
     
     /* Tab 1: 👑 Terminal Cockpit - Warm Champagne Gold */
     .stTabs [data-baseweb="tab"]:nth-of-type(1):hover {
-        background: rgba(254, 243, 199, 0.5) !important;
+        background: linear-gradient(135deg, #FEF3C7 0%, #FFFBEB 100%) !important;
         color: #B45309 !important;
+        border-color: rgba(217, 119, 6, 0.45) !important;
+        box-shadow: 0 8px 20px -2px rgba(217, 119, 6, 0.25) !important;
     }
     .stTabs [data-baseweb="tab"]:nth-of-type(1)[aria-selected="true"] {
         background: linear-gradient(135deg, #FEF3C7 0%, #FFFFFF 100%) !important;
         color: #B45309 !important;
-        border: 1px solid rgba(217, 119, 6, 0.35) !important;
-        box-shadow: 0 4px 14px rgba(217, 119, 6, 0.15) !important;
+        border: 1px solid rgba(217, 119, 6, 0.40) !important;
+        box-shadow: 0 6px 18px rgba(217, 119, 6, 0.18) !important;
+    }
+    .stTabs [data-baseweb="tab"]:nth-of-type(1)[aria-selected="true"]:hover {
+        box-shadow: 0 10px 24px rgba(217, 119, 6, 0.28) !important;
     }
 
     /* Tab 2: ⚖️ Pair Arbitrage Lab - Soft Ice Blue / Sapphire */
     .stTabs [data-baseweb="tab"]:nth-of-type(2):hover {
-        background: rgba(224, 242, 254, 0.5) !important;
+        background: linear-gradient(135deg, #E0F2FE 0%, #F0F9FF 100%) !important;
         color: #0369A1 !important;
+        border-color: rgba(14, 165, 233, 0.45) !important;
+        box-shadow: 0 8px 20px -2px rgba(14, 165, 233, 0.25) !important;
     }
     .stTabs [data-baseweb="tab"]:nth-of-type(2)[aria-selected="true"] {
         background: linear-gradient(135deg, #E0F2FE 0%, #FFFFFF 100%) !important;
         color: #0369A1 !important;
-        border: 1px solid rgba(14, 165, 233, 0.35) !important;
-        box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15) !important;
+        border: 1px solid rgba(14, 165, 233, 0.40) !important;
+        box-shadow: 0 6px 18px rgba(14, 165, 233, 0.18) !important;
+    }
+    .stTabs [data-baseweb="tab"]:nth-of-type(2)[aria-selected="true"]:hover {
+        box-shadow: 0 10px 24px rgba(14, 165, 233, 0.28) !important;
     }
 
     /* Tab 3: 📊 Backtest & Risk Engine - Fresh Mint / Emerald */
     .stTabs [data-baseweb="tab"]:nth-of-type(3):hover {
-        background: rgba(209, 250, 229, 0.5) !important;
+        background: linear-gradient(135deg, #D1FAE5 0%, #ECFDF5 100%) !important;
         color: #047857 !important;
+        border-color: rgba(16, 185, 129, 0.45) !important;
+        box-shadow: 0 8px 20px -2px rgba(16, 185, 129, 0.25) !important;
     }
     .stTabs [data-baseweb="tab"]:nth-of-type(3)[aria-selected="true"] {
         background: linear-gradient(135deg, #D1FAE5 0%, #FFFFFF 100%) !important;
         color: #047857 !important;
-        border: 1px solid rgba(16, 185, 129, 0.35) !important;
-        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15) !important;
+        border: 1px solid rgba(16, 185, 129, 0.40) !important;
+        box-shadow: 0 6px 18px rgba(16, 185, 129, 0.18) !important;
+    }
+    .stTabs [data-baseweb="tab"]:nth-of-type(3)[aria-selected="true"]:hover {
+        box-shadow: 0 10px 24px rgba(16, 185, 129, 0.28) !important;
     }
 
     /* Tab 4: 🧮 Friction & Slippage Simulator - Soft Warm Peach / Terracotta */
     .stTabs [data-baseweb="tab"]:nth-of-type(4):hover {
-        background: rgba(255, 237, 213, 0.5) !important;
+        background: linear-gradient(135deg, #FFEDD5 0%, #FFF7ED 100%) !important;
         color: #C2410C !important;
+        border-color: rgba(249, 115, 22, 0.45) !important;
+        box-shadow: 0 8px 20px -2px rgba(249, 115, 22, 0.25) !important;
     }
     .stTabs [data-baseweb="tab"]:nth-of-type(4)[aria-selected="true"] {
         background: linear-gradient(135deg, #FFEDD5 0%, #FFFFFF 100%) !important;
         color: #C2410C !important;
-        border: 1px solid rgba(249, 115, 22, 0.35) !important;
-        box-shadow: 0 4px 14px rgba(249, 115, 22, 0.15) !important;
+        border: 1px solid rgba(249, 115, 22, 0.40) !important;
+        box-shadow: 0 6px 18px rgba(249, 115, 22, 0.18) !important;
+    }
+    .stTabs [data-baseweb="tab"]:nth-of-type(4)[aria-selected="true"]:hover {
+        box-shadow: 0 10px 24px rgba(249, 115, 22, 0.28) !important;
     }
 
     /* Section Header */
@@ -928,7 +1074,7 @@ with tab_terminal:
                 border_color = "rgba(16, 185, 129, 0.3)" if actionable else "rgba(226, 232, 240, 0.8)"
                 
                 st.markdown(f"""
-                <div style="background: {badge_bg}; border: 1px solid {border_color}; border-radius: 14px; padding: 10px 14px; margin-bottom: 10px;">
+                <div class="feed-signal-card" style="background: {badge_bg}; border: 1px solid {border_color}; border-radius: 14px; padding: 10px 14px; margin-bottom: 10px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <strong style="color: #0F172A; font-size: 0.85rem;">{pair_name}</strong>
                         {status_pill}
@@ -1110,7 +1256,7 @@ with tab_compare:
                     flash_g1 = get_change_flash_class("home_tab2_g1", (leg1, g1))
                     
                     st.markdown(f"""
-                    <div style="background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 12px; padding: 12px 14px; margin-top: 10px;">
+                    <div class="delta-hedge-card" style="background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 12px; padding: 12px 14px; margin-top: 10px;">
                         <strong style="color: #92400E; font-size: 0.88rem;">💡 Delta-Neutral Hedge Ratio:</strong>
                         <div style="font-size: 1.15rem; font-weight: 800; color: #0F172A; margin: 4px 0;">
                             Trade <span class="{flash_hedge}"><strong>{required_leg2_lots:.1f} lots</strong></span> of {leg2}
@@ -1302,7 +1448,7 @@ with tab_friction:
         flash_sim_bp = get_change_flash_class("home_tab4_sim_bp", round(cost_sim['cost_bp'], 2))
         
         st.markdown(f"""
-        <div style="margin-top: 12px; padding: 14px; background: linear-gradient(135deg, rgba(255, 237, 213, 0.75) 0%, rgba(254, 243, 199, 0.75) 100%); border-radius: 12px; border: 1px solid rgba(249, 115, 22, 0.35); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.08);">
+        <div class="friction-summary-card" style="margin-top: 12px; padding: 14px; background: linear-gradient(135deg, rgba(255, 237, 213, 0.75) 0%, rgba(254, 243, 199, 0.75) 100%); border-radius: 12px; border: 1px solid rgba(249, 115, 22, 0.35); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.08);">
             <div style="font-size: 0.75rem; color: #9A3412; font-weight: 800; letter-spacing: 0.5px;">TOTAL ESTIMATED ONE-WAY FRICTION:</div>
             <div style="font-size: 1.55rem; font-weight: 800; color: #C2410C; font-family: 'JetBrains Mono', monospace; margin: 4px 0;">
                 <span class="{flash_sim_cost}">₹{cost_sim['total_cost_inr']:,.2f}</span>
